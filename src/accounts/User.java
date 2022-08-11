@@ -11,6 +11,8 @@ import gui.*;
 import gui.modifiedcomponents.*;
 import datatypes.*;
 import profiles.*;
+import dependencies.*;
+import exceptions.*;
 
 public class User implements AccountActions {
 	
@@ -22,7 +24,6 @@ public class User implements AccountActions {
     public String email;
     public String password;
     public String confirm;
-    public String adminID;
     public JPanel currentPanel;
     public JPanel loginPanel;
     public JPanel signupPanel;
@@ -36,40 +37,22 @@ public class User implements AccountActions {
     }
 	
 	public void signUp(){
-        if (name.equals("") || age == 0 || gender.toString().equals("") || phone == 0 || email.equals("") || password.equals("") || confirm.equals(""))
-            message.setText("Please fill in all text fields.");
-
-        else
-        {
-            if (!password.equals(confirm))
-                message.setText("The passwords you entered don't match.");
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://Booxchange:19112/users", "User", "Booxchange!2345678");
+            Statement st = conn.createStatement();
+            String query = "SELECT * FROM users WHERE userID ='" + userName + "';";
+            ResultSet rs = st.executeQuery(query);
+            if (!rs.next())
+                message.setText("There is a user with that same user name.");
 
             else
             {
-                if(true)// regex)
-                    message.setText("The email you entered is not a valid email.");
-
-                else
-                {
-                    try {
-                        Connection conn = DriverManager.getConnection("jdbc:mysql://Booxchange:19112/users", "User", "Booxchange!2345678");
-                        Statement st = conn.createStatement();
-                        String query = "SELECT * FROM users WHERE userID ='" + userName + "';";
-                        ResultSet rs = st.executeQuery(query);
-                        if (!rs.next())
-                            message.setText("There is a user with that same user name.");
-
-                        else
-                        {
-                            // insertion into the database happens here
-                        }
-                    } 
-                    catch (SQLException e) {
-                        System.out.print(e.getMessage());
-                    }
-
-                }
+                // insertion into the database happens here
             }
+        }
+
+        catch (Exception e) {
+            message.setText(e.getMessage());
         }
     }
 	
@@ -184,7 +167,7 @@ public class User implements AccountActions {
         passWordLabel.setBounds (100, 400, 150, 30);
         passWordField.setBounds (250, 400, 150, 30);
         loginButton.setBounds (200, 450, 100, 30);
-        message.setBounds (200, 500, 100, 30);
+        message.setBounds (100, 500, 300, 30);
         footerPrompt.setBounds (100, 650, 150, 25);
         signUpButton.setBounds (255, 650, 100, 25);
     }
@@ -222,21 +205,35 @@ public class User implements AccountActions {
         JButton signupButton = new FButton("Sign Up!", 18);
         signupButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                userName = nameField.getText() + "123";
-                name = nameField.getText();
-                age = Integer.parseInt(ageField.getText());
-                gender = new Gender("F"); //genderComboBox.getText()
-                phone = Integer.parseInt(phoneField.getText());
-                email = emailField.getText();
-                password = passWordField.getText();
-                confirm = confirmPassWordField.getText();
-                signUp();
+                try {
+                    JTextField[] textFields = {nameField, ageField, phoneField, passWordField, confirmPassWordField, emailField, passWordField, confirmPassWordField};
+                    JPasswordField[] passFields = {};
+                    new SignUpValidator(textFields, emailField, passFields).validate();
+                    userName = nameField.getText() + "123";
+                    name = nameField.getText();
+                    age = Integer.parseInt(ageField.getText());
+                    gender = new Gender("F"); //genderComboBox.getText()
+                    phone = Integer.parseInt(phoneField.getText());
+                    email = emailField.getText();
+                    password = passWordField.getText();
+                    confirm = confirmPassWordField.getText();
+                    signUp();
+                }
+                catch (EmptyException a) {
+                    message.setText("please fill in all fields");
+                }
+                catch (InvalidEmailException b) {
+                    message.setText("the email you put in is invalid");
+                }
+                catch (InvalidPasswordException c) {
+                    message.setText("the passwords you put in don't match");
+                }
             }
         });
+        JLabel message = new CLabel("", 12);
         JLabel footerPrompt = new CLabel ("Already have an account?", 12);
         JButton logInButton = new FButton ("Log in", 12);
         logInButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 currentPanel.remove(signupPanel);
                 currentPanel.add(loginPanel);
@@ -272,6 +269,7 @@ public class User implements AccountActions {
         signupPanel.add(confirmPassWordField);
         //--------------------------
         signupPanel.add(signupButton);
+        signupPanel.add(message);
         signupPanel.add(footerPrompt);
         signupPanel.add(logInButton);
 
@@ -297,6 +295,7 @@ public class User implements AccountActions {
         confirmPassWordField.setBounds(250, 400, 175, 20);
         //--------------------------
         signupButton.setBounds (150, 450, 200, 50);
+        message.setBounds (100, 500, 300, 50);
         footerPrompt.setBounds (100, 650, 150, 25);
         logInButton.setBounds (255, 650, 100, 25);
     }
