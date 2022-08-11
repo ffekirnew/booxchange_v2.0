@@ -9,7 +9,7 @@ class DBConnect {
 	        String myDriver = "com.mysql.cj.jdbc.Driver";
 	        String myUrl = "jdbc:mysql://localhost:3306/booxchange";
 	        Class.forName(myDriver);
-	        Connection conn = DriverManager.getConnection(myUrl, "User", "BooxchangE!2345678");
+	        Connection conn = DriverManager.getConnection(myUrl, "root", "");
 	      // Class.forName("sun.jdbc.odbc.jdbcodbcDriver");
 	      //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Booxchange", "User", "Booxchange!2345678");
 	      
