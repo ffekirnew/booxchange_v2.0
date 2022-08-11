@@ -6,13 +6,13 @@ public abstract class Profile {
  	protected String name;
  	protected int age;
  	protected Gender gender;
- 	protected int phone;
+ 	protected long phone;
  	protected String email;
  	protected Picture profilePicture;
 	protected String profileID;
  	protected String profilePassword;
 
- 	public Profile(String name, int age, Gender gender, int phone, String email, Picture profilePicture, String profilePassword){
+ 	public Profile(String name, int age, Gender gender, long phone, String email, Picture profilePicture, String profilePassword){
 	 	this.name = name;
 	 	this.age = age;
 	 	this.gender = gender;
@@ -31,7 +31,7 @@ public abstract class Profile {
 	public String getGender(){
 		return this.gender.toString();
 	}
-	public int getPhone(){
+	public long getPhone(){
 		return this.phone;
 	}
 	public String getEmail(){
@@ -45,7 +45,7 @@ public abstract class Profile {
 		return Integer.parseInt(this.profileID);
 	}
 
-	public boolean editProfile(String name, int age, Gender gender, int phone, String email, Picture profilePicture){
+	public boolean editProfile(String name, int age, Gender gender, long phone, String email, Picture profilePicture){
 	 	this.name = name;
 	 	this.age = age;
 	 	this.gender = gender;

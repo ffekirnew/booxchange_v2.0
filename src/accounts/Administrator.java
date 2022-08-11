@@ -62,7 +62,7 @@ public class Administrator implements AccountActions {
                         String name = rs.getString(2);
                         int age = Integer.parseInt(rs.getString(3));
                         Gender gender = new Gender(rs.getString(4));
-                        int phone = Integer.parseInt(rs.getString(5));
+                        long phone = Integer.parseInt(rs.getString(5));
                         String email = rs.getString(6);
                         Picture profilePicture = new Picture(rs.getString(8));
                         String profilePassword = rs.getString(7);

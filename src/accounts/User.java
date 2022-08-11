@@ -18,7 +18,7 @@ public class User implements AccountActions {
     public String name;
     public int age = 0;
     public Gender gender;
-    public int phone = 0;
+    public long phone = 0;
     public String email;
     public String password;
     public String confirm;
@@ -103,7 +103,7 @@ public class User implements AccountActions {
                         String name = rs.getString(2);
                         int age = Integer.parseInt(rs.getString(3));
                         Gender gender = new Gender(rs.getString(4));
-                        int phone = Integer.parseInt(rs.getString(5));
+                        long phone = Integer.parseInt(rs.getString(5));
                         String email = rs.getString(6);
                         Picture profilePicture = new Picture("");
                         String profilePassword = rs.getString(7);

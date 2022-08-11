@@ -29,7 +29,7 @@ public class Main {
         frame.setResizable(false);
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         buildPanel();
-        frame.getContentPane().add (panel);
+        frame.getContentPane().add (new AdminProfile("Fikernew", 20, new Gender("M"), 965991101, "hey", new Picture("hey"), "123").currentPanel);
         frame.pack();
         ImageIcon logo = new ImageIcon("./gui/temp.jpg");
         frame.setIconImage(logo.getImage());
