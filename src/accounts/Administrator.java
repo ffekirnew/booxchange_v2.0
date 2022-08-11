@@ -76,19 +76,6 @@ public class Administrator implements AccountActions {
         }
 	}
 
-	public void forgotPassword(){
-		int a = 5; 
-        // this will allow the administrator to request to change their passwords
-	}
-
-	public void signOut(){
-		int a = 5;
-	}
-
-    public static void main(String[] args) {
-        
-    }
-
     public void buildLoginPanel() {
         // create the loginPanel
         loginPanel = new JPanel();

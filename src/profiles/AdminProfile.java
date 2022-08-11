@@ -25,34 +25,29 @@ public class AdminProfile extends Profile implements DatabaseHandler {
 	public AdminProfile(String name, int age, Gender gender, long phone, String email, Picture profilePicture, String profilePassword){
 		super(name, age, gender, phone, email, profilePicture, profilePassword);
 		currentPanel = new JPanel(new FlowLayout());
-currentPanel.setBackground(new Commons().BLUE);
+        currentPanel.setBackground(new Commons().BLUE);
 	    buildFrontPanel();
 	    currentPanel.add(frontPanel);
 	}
 
-	public boolean banUser(Profile profile){
+	public void banUser(Profile profile){
 		// this should note and archive a users profile into a file and delete the user from the database
-		return true;
 	}
 
-	public boolean approveEnlisting(){
+	public void approveEnlisting(){
 		// this method should allow the administrator to approve an enlisted book
-		return true;
 	}
 
-	public boolean approveRequest(){
+	public void approveRequest(){
 		// this method should allow the administrator to approve a requested book
-		return true;
 	}
 
-	public boolean checkUserActivity(Report report){
+	public void checkUserActivity(Report report){
 		// this method should return all information about a user
-		return true;
 	}
 
-	public boolean addRoom(){
+	public void addRoom(){
 		//
-		return true;
 	}
 
 	// these methods should allow the administrator to change the states of the database
@@ -161,7 +156,7 @@ currentPanel.setBackground(new Commons().BLUE);
 		enlistingRequestsPanel.setBackground(new Commons().BLUE);
 
 		//construct preComponents
-        String[] allListItems = {"Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3"};
+        ArrayL allListItems = {"Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3"};
 
 		//construct components
 		JLabel titleLabel = new CLabel("Enlisting Requests", 30);

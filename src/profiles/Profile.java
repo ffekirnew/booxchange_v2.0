@@ -8,11 +8,10 @@ public abstract class Profile {
  	protected Gender gender;
  	protected long phone;
  	protected String email;
- 	protected Picture profilePicture;
 	protected String profileID;
  	protected String profilePassword;
 
- 	public Profile(String name, int age, Gender gender, long phone, String email, Picture profilePicture, String profilePassword){
+ 	public Profile(String name, int age, Gender gender, long phone, String email, String profilePassword){
 	 	this.name = name;
 	 	this.age = age;
 	 	this.gender = gender;
