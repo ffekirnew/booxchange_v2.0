@@ -23,6 +23,7 @@ public class UserProfile extends Profile implements DatabaseHandler {
 	public UserProfile(String name, int age, Gender gender, long phone, String email, Picture profilePicture, String profilePassword) {
 		super(name, age, gender, phone, email, profilePicture, profilePassword);
 		currentPanel = new JPanel(new FlowLayout());
+currentPanel.setBackground(new Commons().BLUE);
 	    buildFrontPanel();
 	    currentPanel.add(frontPanel);
 	}
@@ -31,20 +32,20 @@ public class UserProfile extends Profile implements DatabaseHandler {
 		// Book newEnlist = new EnlistingRequest(bookName, authorName, yearOfPublication, genre, isAvailable, isAccepted, requesterID, createdDate, enlistingID);
 		// this  is where the data will be written to the database
 	}
-	public boolean requestBook(){
+	public void requestBook(){
 		// Book newRequest = OfferingRequest(bookName, authorName, yearOfPublication, genre, isAvailable, isAccepted, requesterID, createdDate, offeringID, requestedDate);
 		// this is where the data will be written to the database
-		return true;
 	}
-	public boolean reportUser() {
+	public void reportUser() {
 		// Report report = new Report(repoter, reported, reason);
 		// this is where the report will be sent to the database
-		return true;
 	}
-	public boolean search(){
+	public void search(){
 		// this will primarily be a place to query the database
-		return true;
 	}
+    public void suggest() {
+        // to suggest books to a user based on proximity and age groups
+    }
 
 	public void create(){
 		// this.QUERY = "INSERT INTO users " + request;
@@ -119,6 +120,15 @@ public class UserProfile extends Profile implements DatabaseHandler {
         });
 	    JLabel footerPrompt = new CLabel ("Wanna know more?", 12);
 	    JButton aboutUsButton = new FButton ("About Us.", 12);
+        aboutUsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buildReportPanel();
+                currentPanel.remove(frontPanel);
+                currentPanel.add(new AboutUs().currentPanel);
+                currentPanel.revalidate();
+                currentPanel.repaint();
+            }
+        });
 
         //adjust size and set layout
         frontPanel.setPreferredSize (new Dimension (500, 700));

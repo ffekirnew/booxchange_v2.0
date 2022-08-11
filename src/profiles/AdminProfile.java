@@ -25,6 +25,7 @@ public class AdminProfile extends Profile implements DatabaseHandler {
 	public AdminProfile(String name, int age, Gender gender, long phone, String email, Picture profilePicture, String profilePassword){
 		super(name, age, gender, phone, email, profilePicture, profilePassword);
 		currentPanel = new JPanel(new FlowLayout());
+currentPanel.setBackground(new Commons().BLUE);
 	    buildFrontPanel();
 	    currentPanel.add(frontPanel);
 	}
@@ -111,17 +112,16 @@ public class AdminProfile extends Profile implements DatabaseHandler {
 	    JButton banButton = new FButton ("Ban User - Report on User", 15);
         banButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	// buildBanUserPanel();
-             //    currentPanel.remove(frontPanel);
-             //    currentPanel.add(banUserPanel);
-             //    currentPanel.revalidate();
-             //    currentPanel.repaint();
+            	buildBanUserPanel();
+                currentPanel.remove(frontPanel);
+                currentPanel.add(banUserPanel);
+                currentPanel.revalidate();
+                currentPanel.repaint();
             }
         });
 	    JLabel backLabel = new CLabel ("Wanna use the system as a user?", 12);
 	    JButton backButton = new FButton ("Log out.", 12);
         backButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 currentPanel.remove(frontPanel);
                 User new_user = new User();
@@ -345,5 +345,61 @@ public class AdminProfile extends Profile implements DatabaseHandler {
 
 	public void buildBanUserPanel() {
 
-	}
+        banUserPanel = new JPanel();
+
+        // set background color
+        banUserPanel.setBackground(new Commons().BLUE);
+
+        // construct pre components
+        String[] resultsListItems = {"Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3"};
+
+        //construct components
+        JLabel titleLabel = new CLabel("Ban User", 30);
+        JTextField searchTextField = new JTextField ("Search here...");
+        JButton searchButton = new JButton ("Search");
+        JLabel resultsLabel = new CLabel("Report on User: ", 15);
+        JList resultsList = new JList(resultsListItems);
+        JScrollPane resultsScrollPane = new JScrollPane();
+        resultsScrollPane.setViewportView(resultsList);
+        JButton banUserButton = new FButton ("Ban User", 12);
+        banUserButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        JLabel footerQuestionLabel = new CLabel("Done here?", 12);
+        JButton backButton = new FButton("Go back", 12);
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                currentPanel.remove(banUserPanel);
+                currentPanel.add(frontPanel);
+                currentPanel.revalidate();
+                currentPanel.repaint();
+            }
+        });
+
+        //adjust size and set layout
+        banUserPanel.setPreferredSize (new Dimension (500, 700));
+        banUserPanel.setLayout (null);
+
+        //add components
+        banUserPanel.add(titleLabel);
+        banUserPanel.add(searchTextField);
+        banUserPanel.add(searchButton);
+        banUserPanel.add(resultsLabel);
+        banUserPanel.add(resultsScrollPane);
+        banUserPanel.add(banUserButton);
+        banUserPanel.add(footerQuestionLabel);
+        banUserPanel.add(backButton);
+
+        //set component bounds (only needed by Absolute Positioning)
+        titleLabel.setBounds (0, 25, 500, 50);
+        searchTextField.setBounds (100, 100, 225, 25);
+        searchButton.setBounds (325, 100, 75, 25);
+        resultsLabel.setBounds (100, 150, 300, 30);
+        resultsScrollPane.setBounds(100, 180, 300, 350);
+        banUserButton.setBounds(200, 550, 100, 50);
+        footerQuestionLabel.setBounds (0, 650, 250, 25);
+        backButton.setBounds (255, 650, 100, 25);
+    }
 }

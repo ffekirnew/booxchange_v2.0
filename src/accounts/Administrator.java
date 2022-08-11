@@ -31,7 +31,6 @@ public class Administrator implements AccountActions {
 	}
 
 	public void signIn(){
-        System.out.print("It works.");
 		if (adminPassword.equals("") || adminID.equals("")) {
             message.setText("Please fill in all text fields.");
         }

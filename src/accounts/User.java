@@ -31,6 +31,7 @@ public class User implements AccountActions {
 
     public User() {
         currentPanel = new JPanel(new FlowLayout());
+        currentPanel.setBackground(new Commons().BLUE);
         buildLoginPanel();
         buildSignUpPanel();
         currentPanel.add(loginPanel);
@@ -99,14 +100,6 @@ public class User implements AccountActions {
                 message.setText("try again");
             }
         }
-	}
-	
-	public void forgotPassword(){
-		System.out.println("this is a huge mistake");
-	}
-	
-	public void signOut(){
-		System.out.println("this is a huge mistake");
 	}
 
     public void buildLoginPanel() {
