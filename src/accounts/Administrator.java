@@ -16,6 +16,7 @@ public class Administrator implements AccountActions {
 	public String adminPassword;
 	public String adminID;
 	public JFrame frame;
+    public JPanel currentPanel;
     public JPanel loginPanel;  
     public JLabel titleLabel;
     public JLabel promptLabel;
@@ -26,51 +27,81 @@ public class Administrator implements AccountActions {
     public JButton loginButton;
     public JLabel message;
 
+    public Administrator(){
+        currentPanel = new JPanel(new FlowLayout());
+        currentPanel.setBackground(new Commons().BLUE);
+        buildLoginPanel();
+        currentPanel.add(loginPanel);
+    }
+
 	public void signUp(){
 		System.out.print(adminID + " " + adminPassword);
 	}
 
 	public void signIn(){
+        System.out.println("function called");
 		if (adminPassword.equals("") || adminID.equals("")) {
             message.setText("Please fill in all text fields.");
         }
 
         else {
             try {
-                Connection conn = DriverManager.getConnection("jdbc:mysql://Booxchange:19112/administrators", "User", "Booxchange!2345678");
+                String myDriver = "com.mysql.cj.jdbc.Driver";
+                String myUrl = "jdbc:mysql://localhost:3306/booxchange";
+                Class.forName(myDriver);
+                Connection conn = DriverManager.getConnection(myUrl, "root", "");
                 Statement st = conn.createStatement();
-                String query = "SELECT * FROM administrators WHERE admin_uid='" + adminID + "';";
+                String query = "SELECT * FROM adminstrators WHERE adminID = " + adminID + ";";
                 ResultSet rs = st.executeQuery(query);
+                System.out.println("first trial");
 
                 if (!rs.next()) {
                     message.setText("No admin with that username.");
                 }
 
                 else {
-                    query = "SELECT password FROM administrators WHERE adminID = '" + adminID + "';";
+                    query = "SELECT * FROM adminstrators WHERE adminID = " + adminID + ";";
                     rs = st.executeQuery(query);
-
-                    if (rs.getString(1) != adminPassword) {
+                    System.out.println("first else");
+                    System.out.println(adminID);
+                    System.out.println(adminPassword);
+                    String databasePassword = "";
+                    while (rs.next()) {
+                        databasePassword = rs.getString(7);
+                    }
+                    if (!databasePassword.equals(adminPassword)) {
                         message.setText("The password is incorrect.");
                     }
 
                     else {
-                        query = "SELECT * FROM administrators WHERE admin_id='" + adminID + "';";
+                        System.out.println("secont else");
+                        query = "SELECT * FROM adminstrators WHERE adminID=" + adminID + ";";
                         rs = st.executeQuery(query);
+                        message.setText("we're gon be successfull!");
+                        while (rs.next()){
+                            String name = rs.getString("name");
+                            System.out.println(name);
+                            int age = rs.getInt("age");
 
-                        String name = rs.getString(2);
-                        int age = Integer.parseInt(rs.getString(3));
-                        Gender gender = new Gender(rs.getString(4));
-                        long phone = Integer.parseInt(rs.getString(5));
-                        String email = rs.getString(6);
-                        Picture profilePicture = new Picture(rs.getString(8));
-                        String profilePassword = rs.getString(7);
-                        AdminProfile admin = new AdminProfile(name, age, gender, phone, email, profilePicture, profilePassword);
+                            Gender gender = new Gender(rs.getString(4));
+                            long phone = rs.getInt("phone");
+                            String email = rs.getString("email");
+                            String profilePassword = rs.getString("password");
+                            System.out.println(profilePassword);
+                            AdminProfile admin = new AdminProfile(name, age, gender, phone, email, new Picture(""), profilePassword);
+                            System.out.println("adminachin");
+                            currentPanel.remove(loginPanel);
+                            currentPanel.add(admin.currentPanel);
+                            currentPanel.repaint();
+                            currentPanel.revalidate();
+                            break;
+                        }
+                        
                     }
                 }
             }
 
-            catch (SQLException e) {
+            catch (Exception e) {
                 message.setText("try again");
             }
         }

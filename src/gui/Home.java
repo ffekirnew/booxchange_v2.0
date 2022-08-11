@@ -47,9 +47,7 @@ public class Home {
         adminButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 currentPanel.remove(panel);
-                Administrator new_admin = new Administrator();
-                new_admin.buildLoginPanel();
-                currentPanel.add(new_admin.loginPanel);
+                currentPanel.add(new Administrator().currentPanel);
                 currentPanel.revalidate();
                 currentPanel.repaint();
             }
