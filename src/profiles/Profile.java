@@ -44,7 +44,7 @@ public abstract class Profile {
 		return Integer.parseInt(this.profileID);
 	}
 
-	public boolean editProfile(String name, int age, Gender gender, long phone, String email, Picture profilePicture){
+	public boolean editProfile(String name, int age, Gender gender, long phone, String email, ){
 	 	this.name = name;
 	 	this.age = age;
 	 	this.gender = gender;

@@ -89,7 +89,7 @@ public class User implements AccountActions {
                         Gender gender = new Gender(rs.getString(4));
                         long phone = Integer.parseInt(rs.getString(5));
                         String email = rs.getString(6);
-                        Picture profilePicture = new Picture("");
+                         = new Picture("");
                         String profilePassword = rs.getString(7);
                         UserProfile admin = new UserProfile(name, age, gender, phone, email, profilePicture, profilePassword);
                     }

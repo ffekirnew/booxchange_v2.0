@@ -22,7 +22,7 @@ public class AdminProfile extends Profile implements DatabaseHandler {
 	public JPanel frontPanel;
 
 	// Constructor
-	public AdminProfile(String name, int age, Gender gender, long phone, String email, Picture profilePicture, String profilePassword){
+	public AdminProfile(String name, int age, Gender gender, long phone, String email, , String profilePassword){
 		super(name, age, gender, phone, email, profilePicture, profilePassword);
 		currentPanel = new JPanel(new FlowLayout());
         currentPanel.setBackground(new Commons().BLUE);

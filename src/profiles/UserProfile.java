@@ -20,7 +20,7 @@ public class UserProfile extends Profile implements DatabaseHandler {
 	public JPanel reportPanel;
 	public JPanel frontPanel;
 
-	public UserProfile(String name, int age, Gender gender, long phone, String email, Picture profilePicture, String profilePassword) {
+	public UserProfile(String name, int age, Gender gender, long phone, String email, , String profilePassword) {
 		super(name, age, gender, phone, email, profilePicture, profilePassword);
 		currentPanel = new JPanel(new FlowLayout());
 currentPanel.setBackground(new Commons().BLUE);
