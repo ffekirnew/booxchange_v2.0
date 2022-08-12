@@ -5,11 +5,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import java.util.ArrayList;
 
 import datatypes.*;
 import gui.*;
 import gui.modifiedcomponents.*;
 import accounts.*;
+import dependencies.*;
 
 public class AdminProfile extends Profile implements DatabaseHandler {
 	
@@ -22,8 +24,8 @@ public class AdminProfile extends Profile implements DatabaseHandler {
 	public JPanel frontPanel;
 
 	// Constructor
-	public AdminProfile(String name, int age, Gender gender, long phone, String email, , String profilePassword){
-		super(name, age, gender, phone, email, profilePicture, profilePassword);
+	public AdminProfile(String name, int age, Gender gender, long phone, String email, String profilePassword){
+		super(name, age, gender, phone, email, profilePassword);
 		currentPanel = new JPanel(new FlowLayout());
         currentPanel.setBackground(new Commons().BLUE);
 	    buildFrontPanel();
@@ -156,12 +158,20 @@ public class AdminProfile extends Profile implements DatabaseHandler {
 		enlistingRequestsPanel.setBackground(new Commons().BLUE);
 
 		//construct preComponents
-        ArrayL allListItems = {"Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3"};
+        ArrayList<String> results = new ArrayList<String>();
+        try {
+            ResultSet rs = new DBConnect().st.executeQuery("SELECT bookName FROM enlistingrequests");
+            while (rs.next()) {
+                results.add(rs.getString(1));
+            }
+        } catch(Exception e) {
+            System.out.print("try again");
+        }
 
 		//construct components
 		JLabel titleLabel = new CLabel("Enlisting Requests", 30);
 	    JLabel promptLabel = new CLabel("Here are the current requests: ", 15);
-	    JList allList = new JList(allListItems);
+	    JList allList = new JList(results.toArray());
 	    JScrollPane allListScrollPane = new JScrollPane();
         allListScrollPane.setViewportView(allList);
 	    JLabel footerQuestionLabel = new CLabel("Done here?", 12);
@@ -300,12 +310,21 @@ public class AdminProfile extends Profile implements DatabaseHandler {
 		reportsPanel.setBackground(new Commons().BLUE);
 
 		//construct preComponents
-        String[] allListItems = {"Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3"};
+        //construct preComponents
+        ArrayList<String> results = new ArrayList<String>();
+        try {
+            ResultSet rs = new DBConnect().st.executeQuery("SELECT users.name FROM users INNER JOIN reports ON users.userID=reports.reportedID;");
+            while (rs.next()) {
+                results.add(rs.getString(1));
+            }
+        } catch(Exception e) {
+            System.out.print("try again");
+        }
 
 		//construct components
 		JLabel titleLabel = new CLabel("User Reports", 30);
-	    JLabel promptLabel = new CLabel("Here are the current reports: ", 15);
-	    JList allList = new JList(allListItems);
+	    JLabel promptLabel = new CLabel("Here are the currently reported users: ", 15);
+	    JList allList = new JList(results.toArray());
 	    JScrollPane allListScrollPane = new JScrollPane();
         allListScrollPane.setViewportView(allList);
 	    JLabel footerQuestionLabel = new CLabel("Done here?", 12);
@@ -346,14 +365,22 @@ public class AdminProfile extends Profile implements DatabaseHandler {
         banUserPanel.setBackground(new Commons().BLUE);
 
         // construct pre components
-        String[] resultsListItems = {"Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3", "Item 1", "Item 2", "Item 3"};
+        ArrayList<String> results = new ArrayList<String>();
+        try {
+            ResultSet rs = new DBConnect().st.executeQuery("SELECT users.name FROM users INNER JOIN reports ON users.userID=reports.reportedID;");
+            while (rs.next()) {
+                results.add(rs.getString(1));
+            }
+        } catch(Exception e) {
+            System.out.print("try again");
+        }
 
         //construct components
         JLabel titleLabel = new CLabel("Ban User", 30);
         JTextField searchTextField = new JTextField ("Search here...");
         JButton searchButton = new JButton ("Search");
         JLabel resultsLabel = new CLabel("Report on User: ", 15);
-        JList resultsList = new JList(resultsListItems);
+        JList resultsList = new JList(results.toArray());
         JScrollPane resultsScrollPane = new JScrollPane();
         resultsScrollPane.setViewportView(resultsList);
         JButton banUserButton = new FButton ("Ban User", 12);

@@ -18,7 +18,7 @@ public class DBConnect {
 	}
 
 	public ResultSet query(String q) {
-		ResultSet rs = st.executeQuery(query);
+		ResultSet rs = st.executeQuery(q);
 		return rs;
 	}
 	

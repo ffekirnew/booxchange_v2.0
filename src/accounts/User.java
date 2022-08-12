@@ -39,16 +39,15 @@ public class User implements AccountActions {
 	
 	public void signUp(){
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://Booxchange:19112/users", "User", "Booxchange!2345678");
-            Statement st = conn.createStatement();
-            String query = "SELECT * FROM users WHERE userID ='" + userName + "';";
-            ResultSet rs = st.executeQuery(query);
-            if (!rs.next())
-                message.setText("There is a user with that same user name.");
-
-            else
-            {
-                // insertion into the database happens here
+            if (! new EmailValidator(this.email).validate())
+                message.setText("the email you entered is not in the correct format");
+            else {
+                if (!password.equals(confirm))
+                    message.setText("the passwords you entered don't match");
+                else {
+                    ResultSet rs = new DBConnect().st.executeQuery("INSERT INTO users values (0, " + name + "', " + age + ", '" + gender.toString() + "', " + phone + ", '" + email + "', '" + password + "');");
+                    message.setText("sign up was successfull, go back now and login.");
+                }
             }
         }
 
@@ -89,9 +88,8 @@ public class User implements AccountActions {
                         Gender gender = new Gender(rs.getString(4));
                         long phone = Integer.parseInt(rs.getString(5));
                         String email = rs.getString(6);
-                         = new Picture("");
                         String profilePassword = rs.getString(7);
-                        UserProfile admin = new UserProfile(name, age, gender, phone, email, profilePicture, profilePassword);
+                        UserProfile admin = new UserProfile(name, age, gender, phone, email, profilePassword);
                     }
                 }
             }
@@ -199,18 +197,18 @@ public class User implements AccountActions {
         signupButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JTextField[] textFields = {nameField, ageField, phoneField, passWordField, confirmPassWordField, emailField, passWordField, confirmPassWordField};
-                    JPasswordField[] passFields = {};
-                    new SignUpValidator(textFields, emailField, passFields).validate();
-                    userName = nameField.getText() + "123";
-                    name = nameField.getText();
-                    age = Integer.parseInt(ageField.getText());
-                    gender = new Gender("F"); //genderComboBox.getText()
-                    phone = Integer.parseInt(phoneField.getText());
-                    email = emailField.getText();
-                    password = passWordField.getText();
-                    confirm = confirmPassWordField.getText();
-                    signUp();
+                    if (nameField.getText().equals("") || ageField.getText().equals("") || phoneField.getText().equals("") || emailField.getText().equals("") || passWordField.getText().equals("") || confirmPassWordField.getText().equals(""))
+                        message.setText("please fill in all fields");
+                    else {
+                        name = nameField.getText();
+                        age = Integer.parseInt(ageField.getText());
+                        gender = new Gender("F"); //genderComboBox.getText()
+                        phone = Integer.parseInt(phoneField.getText());
+                        email = emailField.getText();
+                        password = passWordField.getText();
+                        confirm = confirmPassWordField.getText();
+                        signUp();
+                    }
                 }
                 catch (EmptyException a) {
                     message.setText("please fill in all fields");

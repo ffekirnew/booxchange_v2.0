@@ -88,7 +88,7 @@ public class Administrator implements AccountActions {
                             String email = rs.getString("email");
                             String profilePassword = rs.getString("password");
                             System.out.println(profilePassword);
-                            AdminProfile admin = new AdminProfile(name, age, gender, phone, email, new Picture(""), profilePassword);
+                            AdminProfile admin = new AdminProfile(name, age, gender, phone, email, profilePassword);
                             System.out.println("adminachin");
                             currentPanel.remove(loginPanel);
                             currentPanel.add(admin.currentPanel);

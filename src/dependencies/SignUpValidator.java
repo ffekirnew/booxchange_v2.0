@@ -21,8 +21,7 @@ public class SignUpValidator {
 		this.email = emailField.getText();
 		int index = 0;
 		for (JPasswordField p : passFields) {
-			if (p instanceof JPasswordField)
-				this.passFields[index] = p.getText();
+			this.passFields[index] = p.getText();
 			index++;
 		}
 	}

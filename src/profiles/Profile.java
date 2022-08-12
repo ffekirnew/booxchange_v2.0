@@ -17,7 +17,6 @@ public abstract class Profile {
 	 	this.gender = gender;
 	 	this.phone = phone;
 	 	this.email = email;
-	 	this.profilePicture = profilePicture;
 	 	this.profilePassword = profilePassword;
 	}
 
@@ -36,21 +35,17 @@ public abstract class Profile {
 	public String getEmail(){
 		return this.email;
 	}
-	public Picture getProfilePicture(){
-		return this.profilePicture;
-	}
 
 	public int getProfileID(){
 		return Integer.parseInt(this.profileID);
 	}
 
-	public boolean editProfile(String name, int age, Gender gender, long phone, String email, ){
+	public boolean editProfile(String name, int age, Gender gender, long phone, String email){
 	 	this.name = name;
 	 	this.age = age;
 	 	this.gender = gender;
 	 	this.phone = phone;
 	 	this.email = email;
-	 	this.profilePicture = profilePicture;
 	 	return true;
 	}
 }
