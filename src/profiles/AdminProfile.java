@@ -221,7 +221,7 @@ public class AdminProfile extends Profile implements DatabaseHandler {
 	    JLabel phoneLabel = new LLabel("Phone", 15);
 	    JLabel phoneStartLabel = new LLabel("+251 9", 15);
 	    JLabel emailLabel = new LLabel("Email", 15); 
-	    JLabel passWordLabel = new LLabel("Passoword", 15); 
+	    JLabel passWordLabel = new LLabel("Password", 15); 
 	    JLabel confirmPassWordLabel = new LLabel("Confirm Password", 15);
 
 	    JTextField nameField = new JTextField();
